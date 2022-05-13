@@ -1,0 +1,53 @@
+/**
+  一个栈：输入栈
+  另一个栈：输出栈
+  
+  if 输出栈 is empty
+    循环压入输出栈的value
+**/
+class CQueue {
+
+    Stack<Integer> stack_head;
+    Stack<Integer> stack_tail;
+    Integer sizeOfHead = 0;
+    Integer sizeOfTail = 0;
+    public CQueue() {
+        stack_head = new Stack<Integer>();
+        stack_tail = new Stack<Integer>();
+    }
+    
+    public void appendTail(int value) {
+        stack_tail.push(value);
+        sizeOfTail++;
+    }
+    
+    public int deleteHead() {
+        if (stack_tail.empty() && stack_head.empty())
+        {
+            return -1;
+        }
+        if (stack_head.empty())
+        {
+            while (!stack_tail.empty())
+            {
+                stack_head.push(stack_tail.peek());
+                sizeOfHead++;
+                stack_tail.pop();
+                sizeOfTail--;
+            }
+        }
+        
+        int deleteValue = stack_head.peek();
+        stack_head.pop();
+        sizeOfHead--;
+
+        return deleteValue;
+    }
+}
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue obj = new CQueue();
+ * obj.appendTail(value);
+ * int param_2 = obj.deleteHead();
+ */
