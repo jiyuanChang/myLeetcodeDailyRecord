@@ -1,0 +1,49 @@
+//c++
+class Solution {
+public:
+    string replaceSpace(string s) {
+       string new_s;
+
+       for (auto c : s)
+       {
+           if (c == ' ')
+           {
+               new_s.push_back('%');
+               new_s.push_back('2');
+               new_s.push_back('0');
+           }
+           else
+           {
+               new_s.push_back(c);
+           }
+       }
+
+       return new_s;
+    }
+};
+
+//Java
+class Solution {
+    public String replaceSpace(String s) {
+        int new_lenght = s.length() * 3;
+        char[] s_array = new char[new_lenght];
+        int size = 0;
+
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (s.charAt(i) == ' ')
+            {
+                s_array[size++] = '%';
+                s_array[size++] = '2';
+                s_array[size++] = '0';
+            }
+            else
+            {
+                s_array[size++] = s.charAt(i);
+            }
+        }
+
+        String new_s = new String(s_array, 0, size);
+        return new_s;
+    }
+}
