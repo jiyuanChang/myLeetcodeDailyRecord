@@ -1,0 +1,18 @@
+class Solution {
+    public int findRepeatNumber(int[] nums) {
+        int n = nums.length;
+        int[] count = new int[n];
+
+        int res = 0;
+        for (int i = 0; i < n; i++)
+        {
+            count[nums[i]]++;
+            if (count[nums[i]] > 1)
+            {
+                res = nums[i];
+            }
+        }
+
+        return res;
+    }
+}
