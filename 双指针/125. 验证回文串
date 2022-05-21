@@ -1,0 +1,54 @@
+/**
+https://leetcode.cn/problems/valid-palindrome/
+**/
+//case 1
+class Solution {
+    public boolean isPalindrome(String s) {
+        s = s.toLowerCase();
+        int left = 0, right = s.length() - 1;
+        char[] c = s.toCharArray();
+
+        while (left <= right)
+        {
+            if ((c[left] < 48 || c[left] > 57) && (c[left] < 97 || c[left] > 122))
+            {
+                left++;
+            } else if ((c[right] < 48 || c[right] > 57) && (c[right] < 97 || c[right] > 122))
+            {
+                right--;
+            } else{
+                if (c[left] != c[right])
+                {
+                    return false;
+                }
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
+}
+
+//case 2
+class Solution {
+    public boolean isPalindrome(String s) {
+       if (s == null) return false;
+
+       //1. 转换小写
+       //2. 构建StringBuilder并过滤标点符号
+       //3. 使用StringBuilder-API 反转字符串并和原字符串做判断
+
+       //1
+       s = s.toLowerCase();
+       //2
+       StringBuilder str = new StringBuilder(s.length());
+       for (char c: s.toCharArray())
+       {
+           if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z'))
+           {
+               str.append(c);
+           }
+       }
+       return str.toString().equals(str.reverse().toString());
+    }
+}
