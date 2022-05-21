@@ -1,0 +1,48 @@
+/**
+https://leetcode.cn/problems/valid-anagram/
+**/
+//case 1
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+
+        char[] ss = s.toCharArray();
+        char[] st = t.toCharArray();
+
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char c: ss)
+        {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c: st)
+        {
+            Integer count = map.get(c);
+            if (count == null) 
+            {
+                return false;
+            } else if (count > 1)
+            {
+                map.put(c, count - 1);
+            } else
+            {
+                map.remove(c);
+            }
+        }
+        return map.isEmpty();
+    }
+}
+//case 2
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+
+        char[] ss = s.toCharArray();
+        char[] st = t.toCharArray();
+
+        Arrays.sort(ss);
+        Arrays.sort(st);
+        
+        return Arrays.equals(ss, st);
+    }
+}
