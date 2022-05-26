@@ -1,0 +1,26 @@
+//https://leetcode.cn/leetbook/read/top-interview-questions-easy/xnnhm6/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+       //新链表
+       ListNode new_head = null;
+       while (head != null)
+       {
+           ListNode temp = head.next;
+           
+           head.next = new_head;
+           new_head = head;
+           head = temp;
+       }
+       return new_head;
+    }
+}
