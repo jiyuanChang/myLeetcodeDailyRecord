@@ -1,0 +1,41 @@
+//https://leetcode.cn/problems/remove-nth-node-from-end-of-list/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        //创建哑节点
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        //得到链表的长度
+        int lengthOfList = getListLength(head);
+        //确认要删除节点在链表中的位置
+        ListNode curr = dummy;
+        for (int i = 1; i < lengthOfList - n + 1; i++)
+        {
+            curr = curr.next;
+        }
+        //删除节点
+        curr.next = curr.next.next;
+        ListNode ans = dummy.next;
+        //返回头节点
+        return ans;
+    }
+    int getListLength(ListNode head)
+    {
+        int n = 1;
+        while (head.next != null)
+        {
+            ++n;
+            head = head.next;
+        }
+        return n;
+    }
+}
