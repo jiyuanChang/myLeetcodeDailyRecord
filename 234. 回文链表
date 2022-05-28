@@ -1,0 +1,35 @@
+//https://leetcode.cn/problems/palindrome-linked-list/solution/hui-wen-lian-biao-by-leetcode-solution/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        List<Integer> array = new ArrayList<Integer>();
+
+        ListNode temp = head;
+        while (temp != null)
+        {
+            array.add(temp.val);
+            temp = temp.next;
+        }
+
+        int font = 0, back = array.size() - 1;
+        while (font < back)
+        {
+            if (!array.get(font).equals(array.get(back)))
+            {
+                return false;
+            }
+            font++;
+            back--;
+        }
+        return true;
+    }
+}
