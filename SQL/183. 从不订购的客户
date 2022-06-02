@@ -1,0 +1,6 @@
+//https://leetcode.cn/problems/customers-who-never-order/
+
+# Write your MySQL query statement below
+# 左连接：获取左表所有的记录，即使右表没有对应匹配的记录
+select c.name as Customers from Customers as c left join
+Orders as o on c.Id = o.CustomerId where o.Id is null;
