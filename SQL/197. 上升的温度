@@ -1,0 +1,5 @@
+//https://leetcode.cn/problems/rising-temperature/
+#函数dateDiff(): 日期1 和 日期2 相差的天数
+
+# Write your MySQL query statement below
+select b.id from Weather as b join Weather as a on dateDiff(b.recordDate, a.recordDate) = 1 and b.temperature > a.temperature;
