@@ -1,0 +1,41 @@
+https://leetcode.cn/problems/sort-an-array/submissions/
+
+/**
+
+  以初始点为sign位，不断移动low 和 high
+**/
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    private static void quickSort(int[] nums, int start, int end) {
+        int low = start; 
+        int high = end;
+        int temp = nums[low];
+
+        while (low < high) {
+            while (low < high && nums[high] >= temp) {
+                high--;
+            }
+            nums[low] = nums[high];
+
+            while (low < high && nums[low] <= temp) {
+                low++;
+            }
+            
+            nums[high] = nums[low];
+        }
+        nums[high] = temp;
+
+        if (start < low - 1) {
+            quickSort(nums, start, low - 1);
+        }
+
+        if (low + 1 < end) {
+            quickSort(nums, low + 1, end);
+        }
+    }
+}
