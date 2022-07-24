@@ -1,0 +1,57 @@
+https://leetcode.cn/problems/reverse-nodes-in-k-group/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        //哑节点
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode pre = dummy;
+
+        while (head != null) {
+            ListNode tail = pre;
+            //判断剩余部分长度是否大于k
+            for (int i = 0; i < k; i++) {
+                tail = tail.next;
+                if (tail == null) {
+                    return dummy.next;
+                }
+            }
+
+            ListNode nextNode = tail.next;
+            ListNode[] reverse = reverseLinkedList(head, tail);
+            head = reverse[0];
+            tail = reverse[1];
+
+            pre.next = head;
+            tail.next = nextNode;
+            pre = tail;
+            head = tail.next;
+        }
+        return dummy.next;
+    }
+
+    private static ListNode[] reverseLinkedList(ListNode head, ListNode tail) {
+        ListNode pre = null;
+        ListNode curr = head;
+
+        while (pre != tail) {
+            ListNode temp = curr.next;
+
+            curr.next = pre;
+            pre = curr;
+            curr = temp;
+        }
+
+        return new ListNode[]{tail, head};
+    }
+}
