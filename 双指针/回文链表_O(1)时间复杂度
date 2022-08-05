@@ -1,0 +1,43 @@
+https://leetcode.cn/problems/palindrome-linked-list-lcci/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        ListNode slow = head, fast = head;
+
+        //找中点
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        //反转后半部分
+        ListNode pre = null;
+        while (slow != null) {
+            ListNode temp = slow.next;
+
+            slow.next = pre;
+            pre = slow;
+            slow = temp;
+        }
+
+        ListNode tail = pre;
+        //判断是否回文
+        slow = head;
+        while (tail != null) {
+            if (slow.val != tail.val) {
+                return false;
+            }
+            slow = slow.next;
+            tail = tail.next;
+        }
+        return true;
+    }
+}
