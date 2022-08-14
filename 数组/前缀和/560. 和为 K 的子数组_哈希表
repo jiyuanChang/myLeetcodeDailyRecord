@@ -1,0 +1,21 @@
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int n = nums.length;
+        HashMap<Integer, Integer> preSums = new HashMap<>();
+
+        preSums.put(0, 1);
+        int res = 0, sum_i = 0;
+        for (int i = 0; i < n; i++) {
+            sum_i += nums[i];
+
+            int sum_j = sum_i - k;
+            if (preSums.containsKey(sum_j)) {
+                res += preSums.get(sum_j);
+            }
+
+            preSums.put(sum_i, preSums.getOrDefault(sum_i, 0) + 1);
+        }
+
+        return res;
+    }
+}
