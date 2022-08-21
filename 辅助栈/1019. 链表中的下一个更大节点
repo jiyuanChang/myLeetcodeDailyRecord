@@ -1,0 +1,41 @@
+https://leetcode.cn/problems/next-greater-node-in-linked-list/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public int[] nextLargerNodes(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        //创建容器list存储
+        ArrayList<Integer> list = new ArrayList<>();
+        int size = 0;
+        while (head != null) {
+            list.add(head.val);
+            size++;
+            head = head.next;
+        }
+
+        //创建栈, 栈里存储的对应位置list的元素和其之后最大的值
+        Stack<Integer> stack = new Stack<>();
+        int[] ans = new int[size];
+        
+        for (int i = list.size() - 1; i >= 0; i--) {
+            while (!stack.empty() && stack.peek() <= list.get(i)) {
+                stack.pop();
+            }
+            ans[i] = stack.empty() ? 0 : stack.peek();
+            stack.push(list.get(i));
+        }
+        return ans;
+    }
+}
