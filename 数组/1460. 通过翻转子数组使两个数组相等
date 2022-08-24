@@ -1,5 +1,26 @@
 https://leetcode.cn/problems/make-two-arrays-equal-by-reversing-sub-arrays/
 
+//巧妙解法 - 词频统计
+class Solution {
+    public boolean canBeEqual(int[] target, int[] arr) {
+        int n = target.length, tot = 0;
+        int[] cnt = new int[1010];
+
+        for (int i = 0; i < n; i++) {
+            if (++cnt[target[i]] == 1) tot++;
+            if (--cnt[arr[i]] == 0) tot--;
+        }
+
+        return tot == 0; 
+    }
+}
+
+//判断两数组是否相同
+Arrays.sort(target);
+Arrays.sort(arr);
+return Arrays.equals(target, arr);
+
+//自己解法
 class Solution {
     public boolean canBeEqual(int[] target, int[] arr) {
         int n = target.length, pointer_t = 0;
