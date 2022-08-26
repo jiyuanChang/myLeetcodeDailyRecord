@@ -1,0 +1,33 @@
+// https://leetcode.cn/problems/maximum-product-of-two-elements-in-an-array/
+
+//排序
+class Solution {
+    public int maxProduct(int[] nums) {
+        Arrays.sort(nums);
+
+        return (nums[nums.length - 1] - 1) * (nums[nums.length - 2] - 1);
+    }
+}
+
+//最大值，次大值
+class Solution {
+    public int maxProduct(int[] nums) {
+        int n = nums.length, a = nums[0], b = nums[1];
+        if (a < b) {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+        for (int i = 2; i < n; i++) {
+            if (nums[i] > a) {
+                b = a;
+                a = nums[i];
+            } else if (nums[i] > b) {
+                b = nums[i];
+            }
+        }
+
+        return (a - 1) * (b - 1);
+    }
+}
