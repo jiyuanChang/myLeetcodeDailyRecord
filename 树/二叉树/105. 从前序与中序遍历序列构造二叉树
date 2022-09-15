@@ -42,3 +42,52 @@ class Solution {
         return root;
     }
 }
+
+//HashMap 优化
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        //优化：
+        //通过HashMap记录数组元素，减少搜索root节点的循环次数
+        HashMap<Integer, Integer> map = new HashMap<>();
+        //保存inorder的元素, key是数值，value是index。因为我们要取root of index
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+
+        return buildTreeHelper(preorder, 0, preorder.length, inorder, 0, inorder.length, map);
+    }
+    
+    private TreeNode buildTreeHelper(int[] preorder, int p_start, int p_end, int[] inorder, int i_start, int i_end, HashMap<Integer, Integer> map) {
+        //判断树是否为null
+        if (p_start == p_end) {
+            return null;
+        }
+
+        //创建root节点
+        TreeNode root = new TreeNode(preorder[p_start]);
+        //HashMap优化
+        int root_index = map.get(root.val);
+        int countOfLeft = root_index - i_start;
+        //创建root左子树
+        root.left = buildTreeHelper(preorder, p_start + 1, p_start + countOfLeft + 1, inorder, i_start, root_index, map);
+        //创建root右子树
+        root.right = buildTreeHelper(preorder, p_start + countOfLeft + 1, p_end, inorder, root_index + 1, i_end, map);
+        return root;
+    }
+}
