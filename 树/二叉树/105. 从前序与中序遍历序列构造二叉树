@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return buildTreeHelper(preorder, 0, preorder.length, inorder, 0, inorder.length);
+    }
+
+    private TreeNode buildTreeHelper(int[] preorder, int p_start, int p_end, int[] inorder, int i_start, int i_end) {
+        if (p_start == p_end) {
+            return null;
+        }
+
+        //通过preorder找到root节点
+        TreeNode root = new TreeNode(preorder[p_start]);
+        int root_val = preorder[p_start];
+        int root_index = 0;
+        //找到inorder下的root节点的索引
+        for (int i = 0; i < i_end; i++) {
+            if (inorder[i] == root_val) {
+                root_index = i;
+                break;
+            }
+        }
+        int countOfLeft = root_index - i_start;
+        //构建root左子树
+        root.left = buildTreeHelper(preorder, p_start + 1, p_start + 1 + countOfLeft, inorder, i_start, root_index);
+        //构建root右子树
+        root.right = buildTreeHelper(preorder, p_start + countOfLeft + 1, p_end, inorder, root_index + 1, i_end);
+        return root;
+    }
+}
